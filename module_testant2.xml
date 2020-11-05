@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_testant2" default="compile.module.testant2">
+  <dirname property="module.testant2.basedir" file="${ant.file.module_testant2}"/>
+  
+  <property name="module.jdk.home.testant2" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.testant2" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.testant2" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.testant2" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="testant2.output.dir" value="${module.testant2.basedir}/out/production/testAnt2"/>
+  <property name="testant2.testoutput.dir" value="${module.testant2.basedir}/out/test/testAnt2"/>
+  
+  <path id="testant2.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="testant2.module.production.classpath">
+    <path refid="${module.jdk.classpath.testant2}"/>
+    <path refid="library.apache-tomcat-8.5.classpath"/>
+  </path>
+  
+  <path id="testant2.runtime.production.module.classpath">
+    <pathelement location="${testant2.output.dir}"/>
+    <path refid="library.apache-tomcat-8.5.classpath"/>
+  </path>
+  
+  <path id="testant2.module.classpath">
+    <path refid="${module.jdk.classpath.testant2}"/>
+    <pathelement location="${testant2.output.dir}"/>
+    <path refid="library.apache-tomcat-8.5.classpath"/>
+  </path>
+  
+  <path id="testant2.runtime.module.classpath">
+    <pathelement location="${testant2.testoutput.dir}"/>
+    <pathelement location="${testant2.output.dir}"/>
+    <path refid="library.apache-tomcat-8.5.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.testant2">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.testant2">
+    <patternset refid="excluded.from.module.testant2"/>
+  </patternset>
+  
+  <path id="testant2.module.sourcepath">
+    <dirset dir="${module.testant2.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.testant2" depends="compile.module.testant2.production,compile.module.testant2.tests" description="Compile module testAnt2"/>
+  
+  <target name="compile.module.testant2.production" depends="register.custom.compilers" description="Compile module testAnt2; production classes">
+    <mkdir dir="${testant2.output.dir}"/>
+    <javac2 destdir="${testant2.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.testant2}/javac">
+      <compilerarg line="${compiler.args.testant2}"/>
+      <bootclasspath refid="testant2.module.bootclasspath"/>
+      <classpath refid="testant2.module.production.classpath"/>
+      <src refid="testant2.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.testant2"/>
+    </javac2>
+    
+    <copy todir="${testant2.output.dir}">
+      <fileset dir="${module.testant2.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.testant2.tests" depends="register.custom.compilers,compile.module.testant2.production" description="compile module testAnt2; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.testant2" description="cleanup module">
+    <delete dir="${testant2.output.dir}"/>
+    <delete dir="${testant2.testoutput.dir}"/>
+  </target>
+</project>
