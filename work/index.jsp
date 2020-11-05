@@ -11,9 +11,24 @@
     <meta charset="UTF-8">
     <title>Primitive page</title>
     <style>
+
         body{
             align-items: center;
             text-align: center;
+            font-family: Monserrat, sans-serif;
+        }
+        input{
+            margin: 10px 0;
+            padding: 10px;
+            border: unset;
+            border-bottom: 2px solid #e3e3e3;
+            outline: none;
+        }
+        .butt{
+            padding: 10px;
+            background: #e3e3e3;
+            border: unset;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -25,7 +40,7 @@
     <h3>Enter your name</h3>
     <form method="get" action="/hello/servlet">
         <input type="text" name="name"> <br><br>
-        <input type="submit" name="submit" value="Input">
+        <input class="butt" type="submit" name="submit" value="Input">
     </form>
 </body>
 </html>
