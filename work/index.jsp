@@ -23,7 +23,7 @@
     <h1>Hello <%=userBean.getUsername()%></h1>
     <p>Current time is <%= date.getHours() %>:<%= date.getMinutes() %>:<%= date.getSeconds() %></p>
     <h3>Enter your name</h3>
-    <form method="get" action="/hello/secondservlet">
+    <form method="get" action="/hello/servlet">
         <input type="text" name="name"> <br><br>
         <input type="submit" name="submit" value="Input">
     </form>
